@@ -56,7 +56,7 @@ To find and download additional pre-trained voices:
 
 1. Browse available voices: [Piper Voice Samples](https://rhasspy.github.io/piper-samples/)
 2. Check the complete voice list: [VOICES.md](https://github.com/rhasspy/piper/blob/master/VOICES.md)
-3. Import the `.onnx` and `.json` files into your Unity project's StreamingAssets folder
+3. Import the `.onnx` and `.json` files into your Unity project's Assets folder
 (A few voice models are not compatible with the current version of the Inference Engine and cannot be imported.)
 
 ### 4. Custom Voice Training
