@@ -22,6 +22,8 @@ public class PiperManager : MonoBehaviour
     private AudioSource audioSource;
     private bool isInitialized = false;
 
+    private bool hasSidKey = false;
+
 
     [Range(0.0f, 1.0f)] public float commaDelay = 0.1f;
     [Range(0.0f, 1.0f)] public float periodDelay = 0.5f;
@@ -97,7 +99,12 @@ public class PiperManager : MonoBehaviour
         InitializeESpeak(espeakDataPath);
 
         var model = ModelLoader.Load(modelAsset);
-        engine = new Worker(model, BackendType.GPUPixel);
+        engine = new Worker(model, BackendType.CPU);
+
+        if (model.inputs.Count == 4 && model.inputs[3].name == "sid")
+        {
+            hasSidKey = true;
+        }
 
         voiceNameText.text = $"Model: {modelAsset.name}";
 
@@ -243,6 +250,10 @@ public class PiperManager : MonoBehaviour
         engine.SetInput("input", phonemesTensor);
         engine.SetInput("input_lengths", lengthTensor);
         engine.SetInput("scales", scalesTensor);
+        if (hasSidKey)
+        {
+            engine.SetInput("sid", new Tensor<int>(new TensorShape(1), new int[] { 0 }));
+        }     
 
         engine.Schedule();
 
@@ -289,6 +300,11 @@ public class PiperManager : MonoBehaviour
         engine.SetInput("input", phonemesTensor);
         engine.SetInput("input_lengths", lengthTensor);
         engine.SetInput("scales", scalesTensor);
+        if (hasSidKey)
+        {
+            engine.SetInput("sid", new Tensor<int>(new TensorShape(1), new int[] { 0 }));
+        }
+
 
         engine.Schedule();
         
