@@ -72,6 +72,8 @@ Want to train your own voice model? Follow the official training guide:
 | macOS    | ✅     | `.dylib`       |
 | Android  | ✅     | `.so`          |
 
+* If not executable on Windows, install [espeak-ng.msi](https://github.com/espeak-ng/espeak-ng/releases/tag/1.52.0) manually.
+
 ## Installation
 
 1. Follow the Project Setup steps in the [Getting Started](#-getting-started) section
